@@ -1,0 +1,13 @@
+customer
+admin
+login
+logout
+wp-admin
+wp-content
+theme
+0
+00
+01
+02
+03
+1

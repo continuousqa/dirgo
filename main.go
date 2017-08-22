@@ -5,18 +5,14 @@ import(
 	"os"
 	"net/http"
 	"strings"
-	"sync"
 )
 
 var host string
 var statusCode string
-var wg sync.WaitGroup
 
 func main(){
 	userInput()
-	//wg.Add(30)  // attempting to set up concurrency.
 	words(host)
-	//wg.Wait()
 }
 
 func userInput(){
@@ -36,10 +32,9 @@ func words(url string){
 	scanner := bufio.NewScanner(file)
 
 	for scanner.Scan() {
-		//fmt.Println(scanner.Text()) // For debugging purposes...
 		enumerate(url, scanner.Text())
 	}
-
+	fmt.Println("Done...")
 }
 
 func enumerate(url, word string){
@@ -48,11 +43,8 @@ func enumerate(url, word string){
 		fmt.Println(err)
 	}
 	if strings.Contains(conn.Status, statusCode){
-		fmt.Printf("%s%s%s%s",url, "/", word, " : Good Endpoint\n")
-		discoveredURl := url + "/" + word
-		enumerate(discoveredURl, word)
+		fmt.Printf("%s%s%s%s%s%s",url, "/", word, " : ", statusCode,"\n")
 	}
-	//wg.Done()
 }
 
 
